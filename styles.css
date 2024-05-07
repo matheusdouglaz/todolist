@@ -14,7 +14,7 @@
     margin: 100px auto 0;
 }
 
-.task-input {
+.task-input, .error {
     display: flex;
     justify-content: center;
     align-items: center;

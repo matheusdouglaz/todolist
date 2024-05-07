@@ -13,22 +13,27 @@ function salvarListaNoLocalStorage() {
 
 // Função para adicionar uma nova tarefa
 function adicionarNovaTarefa() {
-  minhaListaDeItens.push({
-    tarefa: input.value,
-    concluida: false,
-    editando: false
-  });
+  if (input.value.trim() !== '') {
+    minhaListaDeItens.push({
+      tarefa: input.value,
+      concluida: false,
+      editando: false
+    });
 
-  input.value = '';
+    input.value = '';
 
-  mostrarTarefas(minhaListaDeItens);
-  
-  // Salvar a lista no localStorage após adicionar uma nova tarefa
-  salvarListaNoLocalStorage();
+    mostrarTarefas(minhaListaDeItens);
+
+    // Salvar a lista no localStorage após adicionar uma nova tarefa
+    salvarListaNoLocalStorage();
+  } else {
+    mostrarErro('ERRO! Por favor, digite uma tarefa a ser feita.');
+  }
 }
 
 // Função para mostrar as tarefas na tela
 function mostrarTarefas(lista) {
+  listaCompleta.innerHTML = '';
   let novaLi = '';
 
   lista.forEach((item, posicao) => {
@@ -64,6 +69,63 @@ function mostrarTarefas(lista) {
 
   listaCompleta.innerHTML = novaLi;
 }
+
+// Função para mostrar mensagem de erro
+let erroMostrado = false;
+
+function mostrarErroUmaVez(mensagem) {
+  if (!erroMostrado) {
+    const mensagemErro = document.createElement('p');
+    mensagemErro.textContent = mensagem;
+    mensagemErro.style.color = 'red';
+    
+    const errorContainer = document.querySelector('.error');
+    errorContainer.insertBefore(mensagemErro, errorContainer.firstChild);
+    
+    erroMostrado = true;
+  }
+}
+
+// Função para adicionar uma nova tarefa
+function adicionarNovaTarefa() {
+  if (input.value.trim() !== '') {
+    // Se houver conteúdo no campo, adicionar a tarefa
+    minhaListaDeItens.push({
+      tarefa: input.value,
+      concluida: false,
+      editando: false
+    });
+
+    input.value = '';
+
+    mostrarTarefas(minhaListaDeItens);
+
+    // Salvar a lista no localStorage após adicionar uma nova tarefa
+    salvarListaNoLocalStorage();
+
+    // Limpar a mensagem de erro se estiver presente
+    limparErro();
+  } else {
+    mostrarErroUmaVez('ERRO! Por favor, digite uma tarefa a ser feita.');
+  }
+}
+
+// Função para limpar a mensagem de erro
+function limparErro() {
+  const errorContainer = document.querySelector('.error');
+  errorContainer.textContent = '';
+  erroMostrado = false;
+}
+
+// Adicionar evento de entrada ao campo de entrada
+input.addEventListener('input', function() {
+  const mensagemErro = document.querySelector('.error');
+  if (input.value.trim() !== '') {
+    // Se houver conteúdo no campo, remover a mensagem de erro
+    mensagemErro.textContent = '';
+  }
+});
+
 
 // Função para concluir uma tarefa
 function concluirTarefa(posicao) {
@@ -156,6 +218,14 @@ input.addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
     adicionarNovaTarefa();
   }
+});
+
+// Adicionar evento de clique nos botões de filtro
+filterButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    const filtro = this.dataset.filtro;
+    filtrarTarefas(filtro);
+  });
 });
 
 // Adicionar evento de clique nos botões de filtro
