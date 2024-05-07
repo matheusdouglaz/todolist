@@ -4,52 +4,50 @@
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     outline: none;
-  }
+}
 
-  .container {
+.container {
     background-color: #d1d1d1;
-    width: 500px;
+    max-width: 500px;
     border-radius: 10px;
     padding: 20px;
     margin: 100px auto 0;
-  }
-  
-  .input-task {
+}
+
+.task-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input-task {
     border: none;
-    border-radius: 5px;
-    width: 300px;
+    width: calc(100% - 50px); /* Alterado para ocupar o restante do espaço disponível */
+    max-width: 300px; /* Limita a largura máxima */
     height: 40px;
     padding-left: 10px;
-  }
-  
-  .button-add-task {
+}
+
+.button-add-task {
     border: none;
-    border-radius: 5px;
     height: 40px;
+    width: 40px; /* Tamanho reduzido */
     background-color: #003329;
     color: #ffffff;
     font-size: 17px;
-    padding: 0 15px;
-    float: right;
     cursor: pointer;
     font-weight: 700;
-  }
-  
-  .button-add-task:hover {
-    opacity: 0.8;
-  }
-  
-  .button-add-task:active {
-    opacity: 0.6;
-  }
-  
-  .list-tasks {
+    margin-left: 10px; /* Espaçamento entre o input e o botão */
+}
+
+.list-tasks {
     width: 100%;
     list-style: none;
     margin-top: 30px;
-  }
-  
-  .task {
+}
+
+.task {
     background-color: #F2F2F2;
     box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.2);
     height: 50px;
@@ -61,37 +59,37 @@
     margin-bottom: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  .task:hover {
+}
+
+.task:hover {
     background-color: #E0E0E0;
-  }
-  
-  .task p {
+}
+
+.task p {
     margin: 0;
-  }
-  
-  .botoes img {
+}
+
+.botoes img {
     height: 25px;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
-  }
-  
-  .task:hover .botoes img {
+}
+
+.task:hover .botoes img {
     opacity: 1;
-  }
-  
-  .done {
+}
+
+.done {
     background-color: #778D89;
     text-decoration: line-through;
-  }
-  
-  .filter-buttons {
+}
+
+.filter-buttons {
     text-align: center;
     margin-top: 25px;
-  }
-  
-  .button-filter {
+}
+
+.button-filter {
     background-color: #ffffff;
     border-color: #00271f;
     align-items: center;
@@ -101,12 +99,13 @@
     margin-bottom: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  .dragging {
+}
+
+.dragging {
     opacity: 0.5;
-  }
-  .background {
+}
+
+.background {
     position: fixed;
     top: 0;
     left: 0;
@@ -115,4 +114,12 @@
     z-index: -1; /* Coloca o elemento atrás do conteúdo */
     animation: animateBackground 10s infinite alternate; /* Animação alternada */
     background: linear-gradient(120deg, #d1d1d1, #003329);
-  }
+}
+
+/* Media Query para telas menores */
+@media only screen and (max-width: 600px) {
+    .container {
+        width: 90%;
+        margin: 50px auto 0;
+    }
+}
