@@ -1,33 +1,28 @@
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     outline: none;
-}
+  }
 
-body{
-    background: url("./img/background.png");
-}
-
-.container {
+  .container {
     background-color: #d1d1d1;
     width: 500px;
     border-radius: 10px;
     padding: 20px;
     margin: 100px auto 0;
-}
-
-.input-task {
+  }
+  
+  .input-task {
     border: none;
     border-radius: 5px;
     width: 300px;
     height: 40px;
     padding-left: 10px;
-}
-
-.button-add-task {
+  }
+  
+  .button-add-task {
     border: none;
     border-radius: 5px;
     height: 40px;
@@ -38,23 +33,23 @@ body{
     float: right;
     cursor: pointer;
     font-weight: 700;
-}
-
-.button-add-task:hover {
+  }
+  
+  .button-add-task:hover {
     opacity: 0.8;
-}
-
-.button-add-task:active {
+  }
+  
+  .button-add-task:active {
     opacity: 0.6;
-}
-
-.list-tasks {
+  }
+  
+  .list-tasks {
     width: 100%;
     list-style: none;
     margin-top: 30px;
-}
-
-.task {
+  }
+  
+  .task {
     background-color: #F2F2F2;
     box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.2);
     height: 50px;
@@ -65,19 +60,59 @@ body{
     border-radius: 5px;
     margin-bottom: 20px;
     cursor: pointer;
-}
-
-img {
+    transition: background-color 0.3s ease;
+  }
+  
+  .task:hover {
+    background-color: #E0E0E0;
+  }
+  
+  .task p {
+    margin: 0;
+  }
+  
+  .botoes img {
     height: 25px;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
-}
-
-.task:hover img {
+  }
+  
+  .task:hover .botoes img {
     opacity: 1;
-}
-
-.done {
-    background-color: #8fac55;
+  }
+  
+  .done {
+    background-color: #778D89;
     text-decoration: line-through;
-}
+  }
+  
+  .filter-buttons {
+    text-align: center;
+    margin-top: 25px;
+  }
+  
+  .button-filter {
+    background-color: #ffffff;
+    border-color: #00271f;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dragging {
+    opacity: 0.5;
+  }
+  .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Coloca o elemento atrás do conteúdo */
+    animation: animateBackground 10s infinite alternate; /* Animação alternada */
+    background: linear-gradient(120deg, #d1d1d1, #003329);
+  }
