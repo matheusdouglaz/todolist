@@ -158,12 +158,6 @@ input.addEventListener('keydown', function(event) {
   }
 });
 
-// Adicionar evento de clique no botão de toggle dos filtros
-filterButtonToggle.addEventListener('click', () => {
-  const currentDisplay = filterButtonsContainer.style.display;
-  filterButtonsContainer.style.display = currentDisplay === 'none' ? 'block' : 'none';
-});
-
 // Adicionar evento de clique nos botões de filtro
 filterButtons.forEach(button => {
   button.addEventListener('click', function() {
