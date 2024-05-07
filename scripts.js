@@ -1,9 +1,11 @@
+// Elementos do DOM
 const button = document.querySelector('.button-add-task');
 const input = document.querySelector('.input-task');
 const listaCompleta = document.querySelector('.list-tasks');
 const filterButtonsContainer = document.querySelector('.filter-buttons');
-const filterButtonToggle = document.querySelector('.button-toggle-filter');
 const filterButtons = document.querySelectorAll('.button-filter');
+
+// Lista de itens
 let minhaListaDeItens = [];
 
 // Função para salvar a lista no localStorage
@@ -24,10 +26,11 @@ function adicionarNovaTarefa() {
 
     mostrarTarefas(minhaListaDeItens);
 
-    // Salvar a lista no localStorage após adicionar uma nova tarefa
     salvarListaNoLocalStorage();
+
+    limparErro();
   } else {
-    mostrarErro('ERRO! Por favor, digite uma tarefa a ser feita.');
+    mostrarErroUmaVez('ERRO! Por favor, digite uma tarefa a ser feita.');
   }
 }
 
@@ -41,7 +44,6 @@ function mostrarTarefas(lista) {
     const editandoClass = item.editando ? 'editando' : '';
 
     if (item.editando) {
-      // Se o item está em modo de edição, mostra o campo de edição
       novaLi += `
         <li class="task ${concluidaClass} ${editandoClass}">
           <div class="botoes">
@@ -53,7 +55,6 @@ function mostrarTarefas(lista) {
         </li>
       `;
     } else {
-      // Caso contrário, mostra apenas o texto da tarefa
       novaLi += `
         <li class="task ${concluidaClass} ${editandoClass}">
           <p>${item.tarefa}</p>
@@ -70,9 +71,10 @@ function mostrarTarefas(lista) {
   listaCompleta.innerHTML = novaLi;
 }
 
-// Função para mostrar mensagem de erro
+// Variável para controlar se a mensagem de erro foi mostrada
 let erroMostrado = false;
 
+// Função para mostrar mensagem de erro apenas uma vez
 function mostrarErroUmaVez(mensagem) {
   if (!erroMostrado) {
     const mensagemErro = document.createElement('p');
@@ -86,30 +88,6 @@ function mostrarErroUmaVez(mensagem) {
   }
 }
 
-// Função para adicionar uma nova tarefa
-function adicionarNovaTarefa() {
-  if (input.value.trim() !== '') {
-    // Se houver conteúdo no campo, adicionar a tarefa
-    minhaListaDeItens.push({
-      tarefa: input.value,
-      concluida: false,
-      editando: false
-    });
-
-    input.value = '';
-
-    mostrarTarefas(minhaListaDeItens);
-
-    // Salvar a lista no localStorage após adicionar uma nova tarefa
-    salvarListaNoLocalStorage();
-
-    // Limpar a mensagem de erro se estiver presente
-    limparErro();
-  } else {
-    mostrarErroUmaVez('ERRO! Por favor, digite uma tarefa a ser feita.');
-  }
-}
-
 // Função para limpar a mensagem de erro
 function limparErro() {
   const errorContainer = document.querySelector('.error');
@@ -117,22 +95,19 @@ function limparErro() {
   erroMostrado = false;
 }
 
-// Adicionar evento de entrada ao campo de entrada
+// Evento de entrada para limpar a mensagem de erro
 input.addEventListener('input', function() {
   const mensagemErro = document.querySelector('.error');
   if (input.value.trim() !== '') {
-    // Se houver conteúdo no campo, remover a mensagem de erro
     mensagemErro.textContent = '';
   }
 });
-
 
 // Função para concluir uma tarefa
 function concluirTarefa(posicao) {
   minhaListaDeItens[posicao].concluida = !minhaListaDeItens[posicao].concluida;
   mostrarTarefas(minhaListaDeItens);
-  
-  // Salvar a lista no localStorage após concluir uma tarefa
+
   salvarListaNoLocalStorage();
 }
 
@@ -140,8 +115,7 @@ function concluirTarefa(posicao) {
 function deletarItem(posicao) {
   minhaListaDeItens.splice(posicao, 1);
   mostrarTarefas(minhaListaDeItens);
-  
-  // Salvar a lista no localStorage após deletar uma tarefa
+
   salvarListaNoLocalStorage();
 }
 
@@ -156,12 +130,10 @@ function recarregarTarefas() {
 
 // Função para editar uma tarefa
 function editarTarefa(posicao) {
-  // Primeiro, desativa o modo de edição para todos os itens
   minhaListaDeItens.forEach(item => {
     item.editando = false;
   });
 
-  // Em seguida, ativa o modo de edição apenas para o item clicado
   minhaListaDeItens[posicao].editando = true;
 
   mostrarTarefas(minhaListaDeItens);
@@ -183,7 +155,6 @@ function salvarEdicaoTecla(event, posicao) {
     minhaListaDeItens[posicao].editando = false;
     mostrarTarefas(minhaListaDeItens);
     
-    // Salvar a lista no localStorage após salvar a edição
     salvarListaNoLocalStorage();
   }
 }
@@ -218,14 +189,6 @@ input.addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
     adicionarNovaTarefa();
   }
-});
-
-// Adicionar evento de clique nos botões de filtro
-filterButtons.forEach(button => {
-  button.addEventListener('click', function() {
-    const filtro = this.dataset.filtro;
-    filtrarTarefas(filtro);
-  });
 });
 
 // Adicionar evento de clique nos botões de filtro
